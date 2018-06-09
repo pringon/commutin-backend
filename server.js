@@ -1,14 +1,25 @@
 "use strict"
-const express = require("express"),
-      app     = express();
+const express    = require("express"),
+      app        = express(),
+      http       = require("http").Server(app),
+      io         = require("socket.io")(http),
+      bodyParser = require("body-parser");
 
-app.set("port", 3000);
+// Get port from environment variables or use 3000 as default
+app.set("port", process.env.PORT || 3000);
 
-app.get('/', (req, res) => {
-  res.send("Hello World!");
-});
+// Request parsing middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.listen(app.get("port"), (err) => {
+// Routing initialisation
+require("./app/routes")(app);
+
+// Server-side websocket initialisation
+require("./app/sockets")(io);
+
+// Start the server and listen on the given port
+http.listen(app.get("port"), (err) => {
   if(err) {
     console.err(err);
   }
