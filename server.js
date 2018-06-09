@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Routing initialisation
-require("./app/routes")(app);
+//require("./app/routes")(app);
 
 // Server-side websocket initialisation
 require("./app/sockets")(io);
