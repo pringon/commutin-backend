@@ -8,5 +8,9 @@ module.exports = (io) => {
       socket.id = id;
       console.log(`Client with id ${id} has connected.`);
     });
+
+    socket.on("tracking run", runCount => {
+      console.log(`${runCount}`);
+    });
   });
 };
