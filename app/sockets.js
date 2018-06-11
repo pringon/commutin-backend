@@ -9,9 +9,9 @@ module.exports = (io) => {
       console.log(`Client with id ${id} has connected.`);
     });
 
-    socket.on("location change", coordinates => {
-      coordinates = JSON.parse(coordinates);
-      console.log(`Client's latitude is ${coordinates[0]} and longitude is ${coordinates[1]}`);
+    socket.on("location change", jsonCoordinates => {
+      let coordinates = JSON.parse(jsonCoordinates);
+      console.log(`Client's latitude is ${coordinates.latitude} and longitude is ${coordinates.longitude}`);
     });
 
     socket.on("disconnect", () => {

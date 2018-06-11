@@ -6,7 +6,7 @@ const express    = require("express"),
       bodyParser = require("body-parser");
 
 // Get port from environment variables or use 3000 as default
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 3001);
 
 // Request parsing middleware
 app.use(bodyParser.urlencoded({ extended: true }));
