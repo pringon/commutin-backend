@@ -2,6 +2,7 @@
 const express    = require("express"),
       app        = express(),
       http       = require("http").Server(app),
+      db         = require("./app/database/models"),
       io         = require("socket.io")(http),
       bodyParser = require("body-parser");
 
@@ -11,9 +12,8 @@ app.set("port", process.env.PORT || 3001);
 // Request parsing middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 // Routing initialisation
-//require("./app/routes")(app);
+//require("./app/routes")(app, models);
 
 // Server-side websocket initialisation
 require("./app/sockets")(io);
