@@ -9,21 +9,7 @@ module.exports = (io) => {
       let id = JSON.parse(jsonId);
       socket.driverId = id.driverId;
       socket.routeId = id.routeId;
-      db.sequelize.sync().then(() => {
-        return db.Trip.create({
-          driverId: id.driverId,
-          routeId: id.routeId
-        });
-      }).then(trip => {
-        if(trip == null) {
-          console.log(`Connection failed for ${socket.driverId}`);
-          socket.emit("set id response", false);
-        } else {
-          console.log(`Successful connection for ${socket.driverId}`);
-          socket.tripId = trip.id;
-          socket.emit("set id response", true);
-        }
-      });
+      initTrip(socket);
     });
 
     socket.on("location change", jsonCoordinates => {
@@ -41,5 +27,31 @@ module.exports = (io) => {
     socket.on("disconnect", () => {
       console.log(`Client with id ${socket.driverId} has disconnected`);
     });
+  });
+};
+
+let initTrip = (socket) => {
+  db.sequelize.sync().then(() => {
+    return db.Driver.findById(socket.driverId);
+  }).then(driver => {
+    if(driver == null) {
+      socket.emit("set id response", false);
+    } else {
+      db.sequelize.sync().then(() => {
+        return db.Trip.create({
+          driverId: socket.driverId,
+          routeId: socket.routeId
+        });
+      }).then(trip => {
+        if(trip == null) {
+          console.log(`Connection failed for ${socket.driverId}`);
+          socket.emit("set id response", false);
+        } else {
+          console.log(`Successful connection for ${socket.driverId}`);
+          socket.tripId = trip.id;
+          socket.emit("set id response", true);
+        }
+      });
+    }
   });
 };

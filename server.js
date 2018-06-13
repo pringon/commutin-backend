@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 require("./app/sockets")(io);
 
 // Start the server and listen on the given port
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   http.listen(app.get("port"), (err) => {
     if(err) {
       console.err(err);

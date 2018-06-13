@@ -5,9 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     latitude: DataTypes.DOUBLE,
     longitutde: DataTypes.DOUBLE
   }, {});
-  Coordinate.associate = function(models) {
+  Coordinate.associate = (models) => {
     Coordinate.belongsTo(models.Trip, {
-      foreignKey: "tripId",
+      foreignKey: "tripId"
     });
   };
   return Coordinate;
