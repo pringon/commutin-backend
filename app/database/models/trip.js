@@ -4,10 +4,5 @@ module.exports = (sequelize, DataTypes) => {
     driverId: DataTypes.INTEGER,
     routeId: DataTypes.INTEGER
   }, {});
-  Trip.associate = function(models) {
-    Trip.hasMany(models.Coordinate, {
-      foreignKey: "tripId",
-    });
-  };
   return Trip;
 };
