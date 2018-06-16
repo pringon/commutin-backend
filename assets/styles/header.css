@@ -1,0 +1,22 @@
+#header {
+    height: -webkit-calc(100% - 56px);
+    height:    -moz-calc(100% - 56px);
+    height:         calc(100% - 56px);
+    background-image: url("/images/header-background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#header h1 {
+    padding-top: 15%;
+    color: white;
+    font-weight: bold;
+}
+#header h3 {
+    padding-top: 5%;
+    padding-left: 25%;
+    width: 75%;
+    font-weight: bold;
+    color: white;
+}
