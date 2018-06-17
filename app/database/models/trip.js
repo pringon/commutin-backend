@@ -1,11 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Trip = sequelize.define('Trip', {
-    routeId: DataTypes.INTEGER
+  var Trip = sequelize.define('trip', {
+    wheelchairAccessible: DataTypes.BOOLEAN
   }, {});
-  Trip.associate = (models) => {
-    Trip.belongsTo(models.Driver, {
-      foreignKey: "driverId"
+  Trip.associate = function(models) {
+    Trip.hasMany(models.stopTime);
+    Trip.belongsTo(models.route);
+    Trip.belongsTo(models.calendar, {
+      foreignKey: "serviceId"
     });
   };
   return Trip;

@@ -1,20 +1,20 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Coordinates', {
+    return queryInterface.createTable('stops', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      time: {
-        type: Sequelize.DATE
+      name: {
+        type: Sequelize.STRING
       },
       latitude: {
         type: Sequelize.DOUBLE
       },
-      longitutde: {
+      longitude: {
         type: Sequelize.DOUBLE
       },
       createdAt: {
@@ -28,6 +28,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Coordinates');
+    return queryInterface.dropTable('stops');
   }
 };
