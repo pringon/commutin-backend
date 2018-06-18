@@ -2,10 +2,11 @@
 const express        = require("express"),
       app            = express(),
       http           = require("http").Server(app),
-      io             = require("socket.io")(http),
+      db             = require("./app/database/models"),
       expressLayouts = require("express-ejs-layouts"),
       flash          = require("connect-flash"),
       cookieParser   = require("cookie-parser"),
+      io             = require("socket.io")(http),
       bodyParser     = require("body-parser");
 
 // Get port from environment variables or use 3000 as default
@@ -33,9 +34,11 @@ require("./app/routes")(app);
 require("./app/sockets")(io);
 
 // Start the server and listen on the given port
-http.listen(app.get("port"), (err) => {
-  if(err) {
-    console.err(err);
-  }
-  console.log(`App is listening on port ${app.get("port")}`);
+db.sequelize.sync().then(() => {
+  http.listen(app.get("port"), (err) => {
+    if(err) {
+      console.err(err);
+    }
+    console.log(`App is listening on port ${app.get("port")}`);
+  });
 });
